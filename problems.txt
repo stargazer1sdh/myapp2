@@ -1,0 +1,2 @@
+E:\方向论文\隐性冲突\gchq\Gaffer\16e93fbfae9c0261cf047af29ac55ad0424ba59f\24GetWalksHandler.java 中的
+.useMatchedVertex(ToVertices.UseMatchedVertex.OPPOSITE)   ppa解析OPPOSITE时 binding = name.resolveBinding(); 报java.lang.ArrayIndexOutOfBoundsException: 1

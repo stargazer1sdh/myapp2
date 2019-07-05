@@ -1,0 +1,41 @@
+valid
+n     无效
+nm    人工判为无效
+y     有效
+x     ppa卡太久，未知
+
+causeb id=2139 courseA(sha=75d3998a20f964ae39ec31206b0e7cc43d6bc896)中改public为private, parent中新建此文件
+
+causeb id=4580 courseA(sha=bfdb2a2fee94e3b11171dd77a2a24b55ba4cefbc)中serialiseToString(String) 对齐错误
+
+causeb id=76075 courseA(sha=435b20c0bc174aacd59b301417ba4be9f2d617ae)    parent中同一文件的相同定义变动
+
+causeb id=5171,5671,5788,6033,5506 courseA serialiseToString  对齐错误
+50005 50138 74932 对齐错误
+122430..122906 128537..128925 155709
+
+causeb id=9040,9210,10413,10454,10489,...    parent中同一文件的相同定义变动
+select causea.id aid, causea.sha asha, fullfile, causeb.id bid, causeb.sha bsha, filepair.filename from causea join causeb on(causea.id=causeAId and valid='y') join filepair on(filePairId=filepair.id) where fullfile=filename and(causeb.sha=(select parent from commit where sha=causea.sha) OR causeb.sha=(select parent2 from commit where sha=causea.sha));
+
+24992，25277，25279,25382,25389,25456,25463,25466,25481,25634 方法被删
+72220 72224 72226 72229 72231 72233
+
+25879 public to protected(或default) 同包类调用
+74465 82356 113838 113839 139452 139453 147211 147645
+
+25917 public to protected son本类调用
+72547 85492..85509 94720 96469 112416
+
+74528 74551 接口中的方法和变量，modifier默认为public(有没有显式声明public，都是public,且不能用private或者protected)
+74636 74659
+75916 75941
+
+72316 72317 72318 72319 72320  调用的同名的其它方法
+82573 89588
+
+89236 89399 89586 89749 89751 不同maven module下的相同类  或者maven下无关系的不同module
+
+
+
+75438  protected to private
+在后续的commit 69d29a62c153bb158aa5501464bc5c4033c54a03 中得到了更正 
