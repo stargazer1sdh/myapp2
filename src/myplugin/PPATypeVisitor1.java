@@ -3,15 +3,13 @@ package myplugin;
 import java.io.PrintStream;
 
 import org.eclipse.jdt.core.dom.ASTVisitor;
-import org.eclipse.jdt.core.dom.ClassInstanceCreation;
 import org.eclipse.jdt.core.dom.IBinding;
 import org.eclipse.jdt.core.dom.ITypeBinding;
 import org.eclipse.jdt.core.dom.IVariableBinding;
-import org.eclipse.jdt.core.dom.MethodInvocation;
 import org.eclipse.jdt.core.dom.SimpleName;
 
 import bean.CauseABean1;
-import myapp2.Application;
+import myapp2.Application1;
 
 
 public class PPATypeVisitor1 extends ASTVisitor {
@@ -62,24 +60,30 @@ public class PPATypeVisitor1 extends ASTVisitor {
 	@Override
 	public boolean visit(SimpleName node) {
 		boolean ans = super.visit(node);
-		IBinding binding = node.resolveBinding();
-		if (binding instanceof IVariableBinding) {
-			IVariableBinding vBinding = (IVariableBinding) binding;
-			if (vBinding.isField()) {
-//				System.out.println("SimpleName Node:\t"+node);
-//				System.out.println(binding);
-				String decType = "nil";
-				ITypeBinding declaringClass = vBinding.getDeclaringClass();
-				if (declaringClass != null) {
-					decType = declaringClass.getQualifiedName();//test.ppa.C
+		try {
+			IBinding binding = node.resolveBinding();
+			if (binding instanceof IVariableBinding) {
+				IVariableBinding vBinding = (IVariableBinding) binding;
+				if (vBinding.isField()) {
+					//				System.out.println("SimpleName Node:\t"+node);
+					//				System.out.println(binding);
+					String decType = "nil";
+					ITypeBinding declaringClass = vBinding.getDeclaringClass();
+					if (declaringClass != null) {
+						decType = declaringClass.getQualifiedName();//test.ppa.C
+					}
+					String fieldName = vBinding.getName();
+					//				System.out.println("DecType:"+decType+",\tfieldName:"+fieldName);
+					//				System.out.println();
+					if (decType.equals(causeA1.className) && fieldName.equals(causeA1.fieldName)) {
+						Application1.hasValid = true;
+					}
 				}
-				String fieldName = vBinding.getName();
-//				System.out.println("DecType:"+decType+",\tfieldName:"+fieldName);
-//				System.out.println();
-				if (decType.equals(causeA1.className) && fieldName.equals(causeA1.fieldName)) {
-					Application.hasValid = true;
-				}
-			}
+			} 
+		} catch (Exception e) {
+			Application1.hasError = true;
+			System.err.println("Visit error when causeB1id:"+causeB1id+"\t"+e);
+			e.printStackTrace();
 		}
 		return ans;
 	}

@@ -28,8 +28,8 @@ public class Application1 implements IApplication {
 
 	public Object start(IApplicationContext context) throws Exception {
 		System.out.println(com.mysql.jdbc.Driver.class);
-//		List<CauseBBean1> causeB1List = DBUtils.getAllCauseB1s();
-		List<CauseBBean1> causeB1List = DBUtils.getAllCauseB1sNullVaild();
+		List<CauseBBean1> causeB1List = DBUtils.getAllCauseB1s();
+//		List<CauseBBean1> causeB1List = DBUtils.getAllCauseB1sNullVaild();
 		for (CauseBBean1 causeb1 : causeB1List) {
 			FilePair fp = DBUtils.getFilePair(causeb1.filePairId);
 			File rightFile = new File(fp.dir + "\\right.java");
